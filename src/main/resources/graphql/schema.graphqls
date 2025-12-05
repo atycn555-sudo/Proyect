@@ -1,0 +1,310 @@
+# ===========================
+# QUERIES
+# ===========================
+type Query {
+  # Client
+  getAllClients: [ClientResponseDTO]
+  getClientById(id: Int): ClientResponseDTO
+
+  # Pet
+  getAllPets: [PetResponseDTO]
+  getPetById(id: Int): PetResponseDTO
+  getPetsByClientId(clientId: Int): [PetResponseDTO]
+
+  # Species
+  getAllSpecies: [SpeciesResponseDTO]
+  getSpeciesById(id: Int): SpeciesResponseDTO
+
+  # Supplier
+  getAllSuppliers: [SupplierResponseDTO]
+  getSupplierById(id: Int): SupplierResponseDTO
+
+  # Product
+  getAllProducts: [ProductResponseDTO]
+  getProductById(id: Int): ProductResponseDTO
+  getProductsByName(name: String): [ProductResponseDTO]
+  getProductsBySupplierId(supplierId: Int): [ProductResponseDTO]
+
+  # Veterinarian
+  getAllVeterinarians: [VeterinarianResponseDTO]
+  getVeterinarianById(id: Int): VeterinarianResponseDTO
+  getVeterinarianByLicenseNumber(licenseNumber: String): VeterinarianResponseDTO
+  getVeterinarianByEmail(email: String): VeterinarianResponseDTO
+
+  # Shift
+  getAllShifts: [ShiftResponseDTO]
+  getShiftById(id: Int): ShiftResponseDTO
+  getShiftsByVeterinarianId(veterinarianId: Int): [ShiftResponseDTO]
+
+  # MedicalHistory
+  getAllMedicalHistories: [MedicalHistoryResponseDTO]
+  getMedicalHistoryById(id: Int): MedicalHistoryResponseDTO
+  getHistoriesByPetId(petId: Int): [MedicalHistoryResponseDTO]
+  getHistoriesByVeterinarianId(vetId: Int): [MedicalHistoryResponseDTO]
+  getHistoriesByDate(date: String): [MedicalHistoryResponseDTO]
+
+  # Vaccine
+  getAllVaccines: [VaccineResponseDTO]
+  getVaccineById(id: Int): VaccineResponseDTO
+  getVaccinesByPetId(petId: Int): [VaccineResponseDTO]
+
+  # Invoice
+  getAllInvoices: [InvoiceResponseDTO]
+  getInvoiceById(id: Int): InvoiceResponseDTO
+  getInvoicesByClientId(clientId: Int): [InvoiceResponseDTO]
+  getInvoicesByDate(date: String): [InvoiceResponseDTO]
+}
+
+# ===========================
+# MUTATIONS
+# ===========================
+type Mutation {
+  # Client
+  addClient(client: ClientRequestDTO): ClientResponseDTO
+  updateClient(id: Int, client: ClientRequestDTO): ClientResponseDTO
+  deleteClient(id: Int): Boolean
+
+  # Pet
+  addPet(pet: PetRequestDTO): PetResponseDTO
+  updatePet(id: Int, pet: PetRequestDTO): PetResponseDTO
+  deletePet(id: Int): Boolean
+
+  # Species
+  addSpecies(species: SpeciesRequestDTO): SpeciesResponseDTO
+  updateSpecies(id: Int, species: SpeciesRequestDTO): SpeciesResponseDTO
+  deleteSpecies(id: Int): Boolean
+
+  # Supplier
+  addSupplier(supplier: SupplierRequestDTO): SupplierResponseDTO
+  updateSupplier(id: Int, supplier: SupplierRequestDTO): SupplierResponseDTO
+  deleteSupplier(id: Int): Boolean
+
+  # Product
+  addProduct(product: ProductRequestDTO): ProductResponseDTO
+  updateProduct(id: Int, product: ProductRequestDTO): ProductResponseDTO
+  deleteProduct(id: Int): Boolean
+
+  # Veterinarian
+  addVeterinarian(vet: VeterinarianRequestDTO): VeterinarianResponseDTO
+  updateVeterinarian(id: Int, vet: VeterinarianRequestDTO): VeterinarianResponseDTO
+  deleteVeterinarian(id: Int): Boolean
+
+  # Shift
+  addShift(shift: ShiftRequestDTO): ShiftResponseDTO
+  deleteShift(id: Int): Boolean
+
+  # MedicalHistory
+  addMedicalHistory(history: MedicalHistoryRequestDTO): MedicalHistoryResponseDTO
+  updateMedicalHistory(id: Int, history: MedicalHistoryRequestDTO): MedicalHistoryResponseDTO
+  deleteMedicalHistory(id: Int): Boolean
+
+  # Vaccine
+  addVaccine(vaccine: VaccineRequestDTO): VaccineResponseDTO
+  deleteVaccine(id: Int): Boolean
+
+  # Invoice
+  addInvoice(invoice: InvoiceRequestDTO): InvoiceResponseDTO
+  updateInvoice(id: Int, invoice: InvoiceRequestDTO): InvoiceResponseDTO
+  deleteInvoice(id: Int): Boolean
+}
+
+# ===========================
+# TYPES & INPUTS
+# ===========================
+
+# Client
+type ClientResponseDTO {
+  idClient: ID!
+  firstName: String!
+  lastName: String
+  phone: String
+  email: String!
+  address: AddressResponseDTO
+  pets: [PetSimpleResponseDTO]
+}
+input ClientRequestDTO {
+  firstName: String!
+  lastName: String
+  phone: String
+  email: String!
+  address: AddressRequestDTO!
+}
+type ClientSimpleResponseDTO {
+  idClient: ID!
+  firstName: String!
+  lastName: String
+}
+
+# Address
+type AddressResponseDTO {
+  idAddress: ID!
+  street: String!
+  city: String!
+  state: String!
+  zipCode: String!
+}
+input AddressRequestDTO {
+  street: String!
+  city: String!
+  state: String!
+  zipCode: String!
+}
+
+# Pet
+type PetResponseDTO {
+  idPet: ID!
+  name: String!
+  birthDate: String
+  breed: String
+  client: ClientSimpleResponseDTO
+  species: SpeciesResponseDTO
+}
+input PetRequestDTO {
+  name: String!
+  birthDate: String
+  breed: String
+  idClient: Int!
+  idSpecies: Int!
+}
+type PetSimpleResponseDTO {
+  idPet: ID!
+  name: String!
+}
+
+# Species
+type SpeciesResponseDTO {
+  idSpecies: ID!
+  speciesName: String!
+}
+input SpeciesRequestDTO {
+  speciesName: String!
+}
+
+# Supplier
+type SupplierResponseDTO {
+  idSupplier: ID!
+  name: String!
+  contactPerson: String
+  phone: String
+}
+input SupplierRequestDTO {
+  name: String!
+  contactPerson: String
+  phone: String
+}
+type SupplierSimpleResponseDTO {
+  idSupplier: ID!
+  name: String!
+}
+
+# Product
+type ProductResponseDTO {
+  idProduct: ID!
+  productName: String!
+  price: Float!
+  stock: Int!
+  supplier: SupplierSimpleResponseDTO
+}
+input ProductRequestDTO {
+  productName: String!
+  price: Float!
+  stock: Int!
+  idSupplier: Int!
+}
+
+# Veterinarian
+type VeterinarianResponseDTO {
+  idVeterinarian: ID!
+  firstName: String!
+  lastName: String!
+  licenseNumber: String!
+  phone: String
+  email: String!
+}
+input VeterinarianRequestDTO {
+  firstName: String!
+  lastName: String!
+  licenseNumber: String!
+  phone: String
+  email: String!
+}
+type VeterinarianSimpleResponseDTO {
+  idVeterinarian: ID!
+  firstName: String!
+  lastName: String!
+}
+
+# Shift
+type ShiftResponseDTO {
+  idShift: ID!
+  dayOfWeek: String!
+  startTime: String!
+  endTime: String!
+  veterinarian: VeterinarianSimpleResponseDTO
+}
+input ShiftRequestDTO {
+  dayOfWeek: String!
+  startTime: String!
+  endTime: String!
+  idVeterinarian: Int!
+}
+
+# MedicalHistory
+type MedicalHistoryResponseDTO {
+  idHistory: ID!
+  date: String!
+  diagnosis: String!
+  treatment: String
+  pet: PetSimpleResponseDTO
+  veterinarian: VeterinarianSimpleResponseDTO
+}
+input MedicalHistoryRequestDTO {
+  date: String!
+  diagnosis: String!
+  treatment: String
+  idPet: Int!
+  idVeterinarian: Int!
+}
+type MedicalHistorySimpleResponseDTO {
+  idHistory: ID!
+  date: String!
+  diagnosis: String!
+}
+
+# Vaccine
+type VaccineResponseDTO {
+  idVaccine: ID!
+  vaccineName: String!
+  applicationDate: String!
+  nextVaccineDate: String
+  batchNumber: String
+  pet: PetSimpleResponseDTO
+}
+input VaccineRequestDTO {
+  vaccineName: String!
+  applicationDate: String!
+  nextVaccineDate: String
+  batchNumber: String
+  idPet: Int!
+}
+
+# Invoice
+type InvoiceResponseDTO {
+  idInvoice: ID!
+  invoiceDate: String!
+  serviceAmount: Float!
+  productAmount: Float!
+  total: Float!
+  paymentStatus: String!
+  client: ClientSimpleResponseDTO
+  medicalHistory: MedicalHistorySimpleResponseDTO
+}
+input InvoiceRequestDTO {
+  invoiceDate: String!
+  serviceAmount: Float!
+  productAmount: Float!
+  total: Float!
+  paymentStatus: String!
+  idClient: Int!
+  idHistory: Int!
+}
