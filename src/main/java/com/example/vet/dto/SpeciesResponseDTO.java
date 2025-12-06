@@ -4,7 +4,6 @@ public class SpeciesResponseDTO {
     private Integer idSpecies;
     private String speciesName;
 
-    // Getters y Setters
     public Integer getIdSpecies() { return idSpecies; }
     public void setIdSpecies(Integer idSpecies) { this.idSpecies = idSpecies; }
     public String getSpeciesName() { return speciesName; }
