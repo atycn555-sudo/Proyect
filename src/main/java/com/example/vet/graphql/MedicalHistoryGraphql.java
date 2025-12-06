@@ -20,9 +20,6 @@ public class MedicalHistoryGraphql {
     @Autowired
     private MedicalHistoryService service;
 
-    // -------------------
-    // QUERIES
-    // -------------------
     @QueryMapping
     public List<MedicalHistoryResponseDTO> getAllMedicalHistories() {
         return service.findAllMedicalHistories();
@@ -50,9 +47,6 @@ public class MedicalHistoryGraphql {
         return service.findByDate(parsedDate);
     }
 
-    // -------------------
-    // MUTATIONS
-    // -------------------
     @MutationMapping
     public MedicalHistoryResponseDTO addMedicalHistory(@Valid @Argument MedicalHistoryRequestDTO historyDTO) {
         return service.toDTO(service.saveMedicalHistory(historyDTO));
