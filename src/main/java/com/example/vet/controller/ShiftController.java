@@ -6,7 +6,7 @@ import com.example.vet.model.Shift;
 import com.example.vet.service.ShiftService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid; // <-- 1. IMPORT THIS ANNOTATION
+import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +31,7 @@ public class ShiftController {
 
     @Operation(summary = "Create a new shift and assign it to a veterinarian")
     @PostMapping
-    public ResponseEntity<ShiftResponseDTO> createShift(@Valid @RequestBody ShiftRequestDTO requestDTO) { // <-- 2. ADD @Valid
+    public ResponseEntity<ShiftResponseDTO> createShift(@Valid @RequestBody ShiftRequestDTO requestDTO) {
         Shift newShift = shiftService.saveShift(requestDTO);
 
         // --- 3. BUILD AND ADD THE LOCATION HEADER ---
@@ -46,7 +46,7 @@ public class ShiftController {
 
     @Operation(summary = "Get a list of all shifts")
     @GetMapping
-    @CrossOrigin(origins = "*") // <-- 4. ADD THIS ANNOTATION FOR THE CORS TEST
+    @CrossOrigin(origins = "*")
     public ResponseEntity<List<ShiftResponseDTO>> getAllShifts() {
         List<Shift> shifts = shiftService.findAllShifts();
         List<ShiftResponseDTO> dtos = shifts.stream()
@@ -81,7 +81,6 @@ public class ShiftController {
                 : ResponseEntity.notFound().build();
     }
 
-    // --- Conversion Method ---
     private ShiftResponseDTO convertToDto(Shift shift) {
         return modelMapper.map(shift, ShiftResponseDTO.class);
     }
