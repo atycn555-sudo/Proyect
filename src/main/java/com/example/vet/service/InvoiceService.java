@@ -31,9 +31,6 @@ public class InvoiceService {
     @Autowired
     private MedicalHistoryRepository medicalHistoryRepository;
 
-    // -------------------
-    // CREATE
-    // -------------------
     @Transactional
     public Invoice saveInvoice(InvoiceRequestDTO dto) {
         Client client = clientRepository.findById(dto.getIdClient())
@@ -55,9 +52,6 @@ public class InvoiceService {
         return invoiceRepository.save(invoice);
     }
 
-    // -------------------
-    // READ
-    // -------------------
     public List<InvoiceResponseDTO> findAllInvoices() {
         return invoiceRepository.findAll().stream()
                 .map(this::toDTO)
@@ -83,9 +77,6 @@ public class InvoiceService {
                 .collect(Collectors.toList());
     }
 
-    // -------------------
-    // UPDATE
-    // -------------------
     @Transactional
     public Optional<Invoice> updateInvoice(Integer id, InvoiceRequestDTO dto) {
         return invoiceRepository.findById(id)
@@ -114,9 +105,6 @@ public class InvoiceService {
                 });
     }
 
-    // -------------------
-    // DELETE
-    // -------------------
     public boolean deleteInvoiceById(Integer id) {
         if (invoiceRepository.existsById(id)) {
             invoiceRepository.deleteById(id);
@@ -125,9 +113,6 @@ public class InvoiceService {
         return false;
     }
 
-    // -------------------
-    // CONVERSIÓN A DTO
-    // -------------------
     public InvoiceResponseDTO toDTO(Invoice invoice) {
         InvoiceResponseDTO dto = new InvoiceResponseDTO();
         dto.setIdInvoice(invoice.getIdInvoice());
