@@ -17,9 +17,8 @@ public class SupplierService {
     private SupplierRepository supplierRepository;
     
     @Autowired
-    private ModelMapper modelMapper; // Add ModelMapper here
+    private ModelMapper modelMapper;
 
-    // CORRECTED: Now receives a DTO
     public Supplier saveSupplier(SupplierRequestDTO requestDTO) {
         // The service is responsible for converting the DTO to an entity
         Supplier supplier = modelMapper.map(requestDTO, Supplier.class);
@@ -34,11 +33,9 @@ public class SupplierService {
         return supplierRepository.findById(id);
     }
 
-    // CORRECTED: Now receives a DTO
     public Optional<Supplier> updateSupplier(Integer id, SupplierRequestDTO requestDTO) {
         return supplierRepository.findById(id)
                 .map(existingSupplier -> {
-                    // Map the new data from the DTO to the existing entity
                     modelMapper.map(requestDTO, existingSupplier);
                     return supplierRepository.save(existingSupplier);
                 });
