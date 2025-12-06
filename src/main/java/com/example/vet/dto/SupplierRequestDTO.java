@@ -5,17 +5,16 @@ import jakarta.validation.constraints.Size;
 
 public class SupplierRequestDTO {
 
-    @NotBlank(message = "El nombre del proveedor no puede estar vacío")
-    @Size(max = 150, message = "El nombre no puede exceder los 150 caracteres")
+    @NotBlank(message = "The supplier name cannot be empty.")
+    @Size(max = 150, message = "The name cannot exceed 150 characters")
     private String name;
 
-    @Size(max = 100, message = "El nombre de contacto no puede exceder los 100 caracteres")
+    @Size(max = 100, message = "The contact name cannot exceed 100 characters")
     private String contactPerson;
 
-    @Size(max = 20, message = "El teléfono no puede exceder los 20 caracteres")
+    @Size(max = 20, message = "The phone number cannot exceed 20 characters.")
     private String phone;
 
-    // Getters y Setters
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
     public String getContactPerson() { return contactPerson; }
