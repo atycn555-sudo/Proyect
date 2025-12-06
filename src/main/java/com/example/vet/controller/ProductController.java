@@ -17,13 +17,13 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/products")
-@Tag(name = "Products", description = "API para gestionar Productos")
+@Tag(name = "Products", description = "API for managing Products")
 public class ProductController {
 
     @Autowired
     private ProductService productService;
 
-    @Operation(summary = "Crear un nuevo producto")
+    @Operation(summary = "Create a new product")
     @PostMapping
     public ResponseEntity<ProductResponseDTO> createProduct(@Valid @RequestBody ProductRequestDTO requestDTO) {
         Product newProduct = productService.saveProduct(requestDTO);
@@ -32,13 +32,13 @@ public class ProductController {
                           .orElse(new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
     }
 
-    @Operation(summary = "Obtener todos los productos")
+    @Operation(summary = "Get all products")
     @GetMapping
     public ResponseEntity<List<ProductResponseDTO>> getAllProducts() {
         return new ResponseEntity<>(productService.findAllProducts(), HttpStatus.OK);
     }
 
-    @Operation(summary = "Obtener un producto por su ID")
+    @Operation(summary = "Get a product by its ID")
     @GetMapping("/{id}")
     public ResponseEntity<ProductResponseDTO> getProductById(@PathVariable Integer id) {
         return productService.findProductById(id)
@@ -46,19 +46,19 @@ public class ProductController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @Operation(summary = "Buscar productos por nombre")
+    @Operation(summary = "Search for products by name")
     @GetMapping("/search/{name}")
     public ResponseEntity<List<ProductResponseDTO>> getProductsByName(@PathVariable String name) {
         return new ResponseEntity<>(productService.findByProductName(name), HttpStatus.OK);
     }
 
-    @Operation(summary = "Buscar productos por proveedor")
+    @Operation(summary = "Search for products by supplier")
     @GetMapping("/supplier/{supplierId}")
     public ResponseEntity<List<ProductResponseDTO>> getProductsBySupplier(@PathVariable Integer supplierId) {
         return new ResponseEntity<>(productService.findBySupplierId(supplierId), HttpStatus.OK);
     }
 
-    @Operation(summary = "Actualizar un producto existente")
+    @Operation(summary = "Update an existing product")
     @PutMapping("/{id}")
     public ResponseEntity<ProductResponseDTO> updateProduct(@PathVariable Integer id,
                                                              @Valid @RequestBody ProductRequestDTO requestDTO) {
@@ -68,7 +68,7 @@ public class ProductController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @Operation(summary = "Eliminar un producto por su ID")
+    @Operation(summary = "Remove a product by its ID")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable Integer id) {
         return productService.deleteProductById(id)
