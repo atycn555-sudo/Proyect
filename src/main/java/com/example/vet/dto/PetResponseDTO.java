@@ -10,7 +10,6 @@ public class PetResponseDTO {
     private ClientSimpleResponseDTO client;
     private SpeciesResponseDTO species;
 
-    // Getters y Setters
     public Integer getIdPet() { return idPet; }
     public void setIdPet(Integer idPet) { this.idPet = idPet; }
     public String getName() { return name; }
