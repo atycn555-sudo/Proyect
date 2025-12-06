@@ -20,9 +20,6 @@ public class SpeciesGraphql {
     @Autowired
     private SpeciesService service;
 
-    // -------------------
-    // QUERIES
-    // -------------------
     @QueryMapping
     public List<SpeciesResponseDTO> getAllSpecies() {
         return service.findAllSpecies().stream()
@@ -37,9 +34,6 @@ public class SpeciesGraphql {
                 .orElseThrow(() -> new RuntimeException("Species not found with id " + id));
     }
 
-    // -------------------
-    // MUTATIONS
-    // -------------------
     @MutationMapping
     public SpeciesResponseDTO addSpecies(@Valid @Argument SpeciesRequestDTO speciesDTO) {
         Species saved = new Species();
@@ -61,9 +55,6 @@ public class SpeciesGraphql {
         return service.deleteSpeciesById(id);
     }
 
-    // -------------------
-    // Conversión a DTO
-    // -------------------
     private SpeciesResponseDTO toDTO(Species species) {
         SpeciesResponseDTO dto = new SpeciesResponseDTO();
         dto.setIdSpecies(species.getIdSpecies());
