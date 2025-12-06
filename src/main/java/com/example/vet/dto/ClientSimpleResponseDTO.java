@@ -5,7 +5,6 @@ public class ClientSimpleResponseDTO {
     private String firstName;
     private String lastName;
 
-    // Getters y Setters
     public Integer getIdClient() { return idClient; }
     public void setIdClient(Integer idClient) { this.idClient = idClient; }
     public String getFirstName() { return firstName; }
