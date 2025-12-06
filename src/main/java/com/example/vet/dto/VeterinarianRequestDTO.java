@@ -6,25 +6,24 @@ import jakarta.validation.constraints.Size;
 
 public class VeterinarianRequestDTO {
 
-    @NotBlank(message = "El nombre no puede estar vacío")
+    @NotBlank(message = "The name cannot be empty.")
     @Size(max = 100)
     private String firstName;
 
-    @NotBlank(message = "El apellido no puede estar vacío")
+    @NotBlank(message = "The lastName cannot be empty.")
     @Size(max = 100)
     private String lastName;
 
-    @NotBlank(message = "El número de licencia no puede estar vacío")
+    @NotBlank(message = "The license number cannot be empty.")
     @Size(max = 50)
     private String licenseNumber;
 
     private String phone;
 
-    @NotBlank(message = "El email не puede estar vacío")
-    @Email(message = "El formato del email es inválido")
+    @NotBlank(message = "The email cannot be empty")
+    @Email(message = "The email format is invalid.")
     private String email;
 
-    // Getters y Setters manuales
     public String getFirstName() { return firstName; }
     public void setFirstName(String firstName) { this.firstName = firstName; }
     public String getLastName() { return lastName; }
