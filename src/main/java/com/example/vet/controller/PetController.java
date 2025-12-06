@@ -6,7 +6,7 @@ import com.example.vet.model.Pet;
 import com.example.vet.service.PetService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid; // <-- 1. IMPORTA ESTA ANOTACIÓN
+import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/pets")
-@Tag(name = "Pets", description = "API para gestionar Mascotas")
+@Tag(name = "Pets", description = "API for managing pets")
 @CrossOrigin(origins = "*")
 public class PetController {
 
@@ -29,12 +29,11 @@ public class PetController {
     @Autowired
     private ModelMapper modelMapper;
 
-    @Operation(summary = "Crear una nueva mascota")
+    @Operation(summary = "Create a new pet")
     @PostMapping
-    public ResponseEntity<PetResponseDTO> createPet(@Valid @RequestBody PetRequestDTO requestDTO) { // <-- 2. AÑADE @Valid
+    public ResponseEntity<PetResponseDTO> createPet(@Valid @RequestBody PetRequestDTO requestDTO) {
         Pet newPet = petService.savePet(requestDTO);
 
-        // --- 3. CONSTRUYE Y AÑADE LA CABECERA LOCATION ---
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
@@ -44,9 +43,9 @@ public class PetController {
         return ResponseEntity.created(location).body(convertToDto(newPet));
     }
 
-    @Operation(summary = "Obtener una lista de todas las mascotas")
+    @Operation(summary = "Get a list of all pets")
     @GetMapping
-    @CrossOrigin(origins = "*") // <-- 4. AÑADE ESTA ANOTACIÓN PARA LA PRUEBA DE CORS
+    @CrossOrigin(origins = "*")
     public ResponseEntity<List<PetResponseDTO>> getAllPets() {
         List<Pet> pets = petService.findAllPets();
         List<PetResponseDTO> dtos = pets.stream()
@@ -55,17 +54,16 @@ public class PetController {
         return ResponseEntity.ok(dtos);
     }
 
-    @Operation(summary = "Actualizar una mascota existente")
+    @Operation(summary = "Update an existing pet")
     @PutMapping("/{id}")
-    public ResponseEntity<PetResponseDTO> updatePet(@PathVariable Integer id, @Valid @RequestBody PetRequestDTO requestDTO) { // <-- 2. AÑADE @Valid
+    public ResponseEntity<PetResponseDTO> updatePet(@PathVariable Integer id, @Valid @RequestBody PetRequestDTO requestDTO) {
         return petService.updatePet(id, requestDTO)
                 .map(updatedPet -> ResponseEntity.ok(convertToDto(updatedPet)))
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // ... (El resto de los métodos se quedan igual, pero usando ResponseEntity para ser consistentes) ...
     
-    @Operation(summary = "Obtener una mascota por su ID")
+    @Operation(summary = "Get a pet by its ID")
     @GetMapping("/{id}")
     public ResponseEntity<PetResponseDTO> getPetById(@PathVariable Integer id) {
         return petService.findPetById(id)
@@ -73,7 +71,7 @@ public class PetController {
                 .orElse(ResponseEntity.notFound().build());
     }
     
-    @Operation(summary = "Obtener todas las mascotas de un cliente específico")
+    @Operation(summary = "Get all of a specific client's pets")
     @GetMapping("/client/{clientId}")
     public ResponseEntity<List<PetResponseDTO>> getPetsByClientId(@PathVariable Integer clientId) {
         List<Pet> pets = petService.findPetsByClientId(clientId);
@@ -83,7 +81,7 @@ public class PetController {
         return ResponseEntity.ok(dtos);
     }
 
-    @Operation(summary = "Eliminar una mascota por su ID")
+    @Operation(summary = "Delete a pet by its ID")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePet(@PathVariable Integer id) {
         return petService.deletePetById(id)
@@ -91,7 +89,6 @@ public class PetController {
                 : ResponseEntity.notFound().build();
     }
 
-    // --- Método de Conversión ---
     private PetResponseDTO convertToDto(Pet pet) {
         return modelMapper.map(pet, PetResponseDTO.class);
     }
