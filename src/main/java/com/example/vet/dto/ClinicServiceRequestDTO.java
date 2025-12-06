@@ -6,7 +6,6 @@ public class ClinicServiceRequestDTO {
     private String serviceName;
     private BigDecimal price;
 
-    // Getters y Setters
     public String getServiceName() {
         return serviceName;
     }
