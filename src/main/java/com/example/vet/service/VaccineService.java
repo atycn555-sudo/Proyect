@@ -45,20 +45,10 @@ public class VaccineService {
         return vaccineRepository.findById(id);
     }
 
-    /**
-     * Busca todos los registros de vacunas de una mascota específica.
-     * @param petId El ID de la mascota.
-     * @return La lista de sus vacunas.
-     */
     public List<Vaccine> findVaccinesByPetId(Integer petId) {
         return vaccineRepository.findByPetIdPet(petId);
     }
 
-    /**
-     * Elimina un registro de vacuna por su ID.
-     * @param id El ID del registro a eliminar.
-     * @return true si se eliminó, false si no.
-     */
     public boolean deleteVaccineById(Integer id) {
         if (vaccineRepository.existsById(id)) {
             vaccineRepository.deleteById(id);
