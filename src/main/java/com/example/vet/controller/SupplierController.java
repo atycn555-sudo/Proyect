@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/suppliers")
-@Tag(name = "Suppliers", description = "API para gestionar Proveedores")
+@Tag(name = "Suppliers", description = "API for managing Suppliers")
 @CrossOrigin(origins = "*")
 public class SupplierController {
 
