@@ -27,7 +27,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/clients")
-@Tag(name = "Clients", description = "API para gestionar Clientes")
+@Tag(name = "Clients", description = "API for managing Clients")
 public class ClientController {
 
     @Autowired
@@ -40,7 +40,6 @@ public class ClientController {
         Client client = modelMapper.map(requestDTO, Client.class);
         Client newClient = clientService.saveClient(client);
 
-        // Buena práctica: devolver la URL del nuevo recurso creado en la cabecera Location
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
@@ -58,7 +57,6 @@ public class ClientController {
                 .orElse(ResponseEntity.notFound().build());
     }
     
-    // ... el resto de tus métodos GET y DELETE se quedan igual ...
     @GetMapping
     public ResponseEntity<List<ClientResponseDTO>> getAllClients() {
         List<Client> clients = clientService.findAllClients();
