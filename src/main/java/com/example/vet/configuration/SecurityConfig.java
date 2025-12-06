@@ -19,7 +19,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import com.example.vet.service.CustomUserDetailsService;
+import com.example.vet.service.UserService;
 
 @Configuration
 @EnableWebSecurity
@@ -94,12 +94,12 @@ public class SecurityConfig {
 
     // ✅ AuthenticationProvider usando tu CustomUserDetailsService
     @Bean
-    public AuthenticationProvider authenticationProvider(CustomUserDetailsService customUserDetailsService,
-                                                         PasswordEncoder encoder) {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userService);
-        authProvider.setPasswordEncoder(encoder);
-        return authProvider;
+    public AuthenticationProvider authenticationProvider(UserService userService,
+                                                     PasswordEncoder encoder) {
+    DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+    authProvider.setUserDetailsService(userService); // 👈 usa tu UserService
+    authProvider.setPasswordEncoder(encoder);
+    return authProvider;
     }
 
     // ✅ Configuración CORS
