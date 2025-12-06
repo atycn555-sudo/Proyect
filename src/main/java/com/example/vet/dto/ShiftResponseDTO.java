@@ -9,7 +9,6 @@ public class ShiftResponseDTO {
     private LocalTime endTime;
     private VeterinarianSimpleResponseDTO veterinarian;
 
-    // Getters y Setters
     public Integer getIdShift() {
         return idShift;
     }
