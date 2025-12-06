@@ -35,7 +35,6 @@ public class VeterinarianController {
         Veterinarian veterinarian = modelMapper.map(requestDTO, Veterinarian.class);
         Veterinarian newVeterinarian = veterinarianService.saveVeterinarian(veterinarian);
 
-        // 3. BUILD AND RETURN THE LOCATION HEADER
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
@@ -47,7 +46,7 @@ public class VeterinarianController {
 
     @Operation(summary = "Get a list of all veterinarians")
     @GetMapping
-    @CrossOrigin(origins = "*") // <-- 4. ADD THIS FOR THE CORS TEST
+    @CrossOrigin(origins = "*")
     public ResponseEntity<List<VeterinarianResponseDTO>> getAllVeterinarians() {
         List<Veterinarian> veterinarians = veterinarianService.findAllVeterinarians();
         List<VeterinarianResponseDTO> dtos = veterinarians.stream()
