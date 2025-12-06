@@ -6,7 +6,7 @@ import com.example.vet.model.Vaccine;
 import com.example.vet.service.VaccineService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid; // <-- 1. IMPORTA ESTA ANOTACIÓN
+import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +31,7 @@ public class VaccineController {
 
     @Operation(summary = "Registrar una nueva vacuna para una mascota")
     @PostMapping
-    public ResponseEntity<VaccineResponseDTO> createVaccine(@Valid @RequestBody VaccineRequestDTO requestDTO) { // <-- 2. AÑADE @Valid
+    public ResponseEntity<VaccineResponseDTO> createVaccine(@Valid @RequestBody VaccineRequestDTO requestDTO) {
         Vaccine newVaccine = vaccineService.saveVaccine(requestDTO);
 
         // --- 3. CONSTRUYE Y AÑADE LA CABECERA LOCATION ---
@@ -46,7 +46,7 @@ public class VaccineController {
 
     @Operation(summary = "Obtener una lista de todos los registros de vacunas")
     @GetMapping
-    @CrossOrigin(origins = "*") // <-- 4. AÑADE ESTA ANOTACIÓN PARA LA PRUEBA DE CORS
+    @CrossOrigin(origins = "*")
     public ResponseEntity<List<VaccineResponseDTO>> getAllVaccines() {
         List<Vaccine> vaccines = vaccineService.findAllVaccines();
         List<VaccineResponseDTO> dtos = vaccines.stream()
@@ -54,8 +54,6 @@ public class VaccineController {
                 .collect(Collectors.toList());
         return ResponseEntity.ok(dtos);
     }
-
-    // ... (El resto de los métodos se quedan igual, pero usando ResponseEntity para ser consistentes) ...
     
     @Operation(summary = "Obtener un registro de vacuna por su ID")
     @GetMapping("/{id}")
@@ -83,7 +81,6 @@ public class VaccineController {
                 : ResponseEntity.notFound().build();
     }
 
-    // --- Método de Conversión ---
     private VaccineResponseDTO convertToDto(Vaccine vaccine) {
         return modelMapper.map(vaccine, VaccineResponseDTO.class);
     }
