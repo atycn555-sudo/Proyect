@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/vaccines")
-@Tag(name = "Vaccines", description = "API para gestionar Registros de Vacunas")
+@Tag(name = "Vaccines", description = "API for managing Vaccine Registries")
 @CrossOrigin(origins = "*")
 public class VaccineController {
 
@@ -29,12 +29,11 @@ public class VaccineController {
     @Autowired
     private ModelMapper modelMapper;
 
-    @Operation(summary = "Registrar una nueva vacuna para una mascota")
+    @Operation(summary = "Register a new vaccine for a pet")
     @PostMapping
     public ResponseEntity<VaccineResponseDTO> createVaccine(@Valid @RequestBody VaccineRequestDTO requestDTO) {
         Vaccine newVaccine = vaccineService.saveVaccine(requestDTO);
 
-        // --- 3. CONSTRUYE Y AÑADE LA CABECERA LOCATION ---
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
@@ -44,7 +43,7 @@ public class VaccineController {
         return ResponseEntity.created(location).body(convertToDto(newVaccine));
     }
 
-    @Operation(summary = "Obtener una lista de todos los registros de vacunas")
+    @Operation(summary = "Obtain a list of all vaccine records")
     @GetMapping
     @CrossOrigin(origins = "*")
     public ResponseEntity<List<VaccineResponseDTO>> getAllVaccines() {
@@ -55,7 +54,7 @@ public class VaccineController {
         return ResponseEntity.ok(dtos);
     }
     
-    @Operation(summary = "Obtener un registro de vacuna por su ID")
+    @Operation(summary = "Obtain a vaccination record using your ID")
     @GetMapping("/{id}")
     public ResponseEntity<VaccineResponseDTO> getVaccineById(@PathVariable Integer id) {
         return vaccineService.findVaccineById(id)
@@ -63,7 +62,7 @@ public class VaccineController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @Operation(summary = "Obtener todos los registros de vacunas de una mascota específica")
+    @Operation(summary = "Obtain all vaccination records for a specific pet")
     @GetMapping("/pet/{petId}")
     public ResponseEntity<List<VaccineResponseDTO>> getVaccinesByPetId(@PathVariable Integer petId) {
         List<Vaccine> vaccines = vaccineService.findVaccinesByPetId(petId);
@@ -73,7 +72,7 @@ public class VaccineController {
         return ResponseEntity.ok(dtos);
     }
 
-    @Operation(summary = "Eliminar un registro de vacuna por su ID")
+    @Operation(summary = "Delete a vaccine record by its ID")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteVaccine(@PathVariable Integer id) {
         return vaccineService.deleteVaccineById(id)
