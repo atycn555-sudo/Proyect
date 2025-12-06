@@ -5,7 +5,7 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 
 @Entity
-@Table(name = "roles")
+@Table(name = "Role")   // 👈 coincide con la tabla real
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -13,8 +13,10 @@ public class Role implements GrantedAuthority {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long role_id;
+    @Column(name = "id_role")   // 👈 coincide con la PK de Role
+    private Long id;
 
+    @Column(name = "name", unique = true, nullable = false, length = 50)
     private String authority;
 
     public Role(String authority) {
