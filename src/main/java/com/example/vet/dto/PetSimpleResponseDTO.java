@@ -4,7 +4,6 @@ public class PetSimpleResponseDTO {
     private Integer idPet;
     private String name;
 
-    // Getters y Setters
     public Integer getIdPet() { return idPet; }
     public void setIdPet(Integer idPet) { this.idPet = idPet; }
     public String getName() { return name; }
