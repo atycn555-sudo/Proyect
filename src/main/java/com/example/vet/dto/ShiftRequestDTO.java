@@ -6,19 +6,18 @@ import java.time.LocalTime;
 
 public class ShiftRequestDTO {
 
-    @NotBlank(message = "El día de la semana no puede estar vacío")
+    @NotBlank(message = "The day of the week cannot be empty")
     private String dayOfWeek;
 
-    @NotNull(message = "La hora de inicio no puede ser nula")
+    @NotNull(message = "The start time cannot be zero.")
     private LocalTime startTime;
 
-    @NotNull(message = "La hora de fin no puede ser nula")
+    @NotNull(message = "The end time cannot be zero.")
     private LocalTime endTime;
 
-    @NotNull(message = "El ID del veterinario no puede ser nulo")
+    @NotNull(message = "The veterinarian's ID cannot be null")
     private Integer idVeterinarian;
 
-    // ... tus getters y setters manuales ...
     public String getDayOfWeek() { return dayOfWeek; }
     public void setDayOfWeek(String dayOfWeek) { this.dayOfWeek = dayOfWeek; }
     public LocalTime getStartTime() { return startTime; }
