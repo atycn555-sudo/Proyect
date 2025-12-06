@@ -20,9 +20,6 @@ public class ShiftGraphql {
     @Autowired
     private ShiftService service;
 
-    // -------------------
-    // QUERIES
-    // -------------------
     @QueryMapping
     public List<ShiftResponseDTO> getAllShifts() {
         return service.findAllShifts().stream()
@@ -44,9 +41,6 @@ public class ShiftGraphql {
                 .toList();
     }
 
-    // -------------------
-    // MUTATIONS
-    // -------------------
     @MutationMapping
     public ShiftResponseDTO addShift(@Valid @Argument ShiftRequestDTO shiftDTO) {
         Shift saved = service.saveShift(shiftDTO);
