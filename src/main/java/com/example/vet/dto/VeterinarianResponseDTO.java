@@ -8,7 +8,6 @@ public class VeterinarianResponseDTO {
     private String phone;
     private String email;
 
-    // Getters y Setters
     public Integer getIdVeterinarian() {
         return idVeterinarian;
     }
