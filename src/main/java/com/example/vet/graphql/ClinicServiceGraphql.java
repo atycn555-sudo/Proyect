@@ -18,9 +18,6 @@ public class ClinicServiceGraphql {
     @Autowired
     private ClinicServiceService service;
 
-    // -------------------
-    // QUERIES
-    // -------------------
     @QueryMapping
     public List<ClinicService> getAllClinicServices() {
         return service.findAllClinicServices();
@@ -32,9 +29,6 @@ public class ClinicServiceGraphql {
                 .orElseThrow(() -> new RuntimeException("ClinicService not found with id " + id));
     }
 
-    // -------------------
-    // MUTATIONS
-    // -------------------
     @MutationMapping
     public ClinicService addClinicService(@Valid @Argument ClinicService clinicService) {
         return service.saveClinicService(clinicService);
