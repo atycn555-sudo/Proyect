@@ -20,9 +20,6 @@ public class SupplierGraphql {
     @Autowired
     private SupplierService service;
 
-    // -------------------
-    // QUERIES
-    // -------------------
     @QueryMapping
     public List<SupplierResponseDTO> getAllSuppliers() {
         return service.findAllSuppliers().stream()
@@ -37,9 +34,6 @@ public class SupplierGraphql {
                 .orElseThrow(() -> new RuntimeException("Supplier not found with id " + id));
     }
 
-    // -------------------
-    // MUTATIONS
-    // -------------------
     @MutationMapping
     public SupplierResponseDTO addSupplier(@Valid @Argument SupplierRequestDTO supplierDTO) {
         Supplier saved = service.saveSupplier(supplierDTO);
@@ -58,9 +52,6 @@ public class SupplierGraphql {
         return service.deleteSupplierById(id);
     }
 
-    // -------------------
-    // Conversión a DTO
-    // -------------------
     private SupplierResponseDTO toDTO(Supplier supplier) {
         SupplierResponseDTO dto = new SupplierResponseDTO();
         dto.setIdSupplier(supplier.getIdSupplier());
