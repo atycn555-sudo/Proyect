@@ -8,25 +8,24 @@ import jakarta.validation.constraints.Size;
 
 public class ClientRequestDTO {
 
-    @NotBlank(message = "El nombre no puede estar vacío")
-    @Size(min = 2, max = 100, message = "El nombre debe tener entre 2 y 100 caracteres")
+    @NotBlank(message = "The name cannot be empty")
+    @Size(min = 2, max = 100, message = "The name must be between 2 and 100 characters long")
     private String firstName;
 
-    @Size(max = 100, message = "El apellido no puede tener más de 100 caracteres")
+    @Size(max = 100, message = "The lastName cannot be longer than 100 characters")
     private String lastName;
 
-    @Size(max = 20, message = "El teléfono no puede tener más de 20 caracteres")
+    @Size(max = 20, message = "The phone number cannot have more than 20 characters.")
     private String phone;
 
-    @NotBlank(message = "El email no puede estar vacío")
-    @Email(message = "El formato del email es inválido")
+    @NotBlank(message = "The email cannot be empty.")
+    @Email(message = "The email format is invalid.")
     private String email;
 
-    @NotNull(message = "La dirección no puede ser nula")
-    @Valid // Activa la validación para el objeto Address anidado
+    @NotNull(message = "The address cannot be null")
+    @Valid 
     private AddressRequestDTO address;
     
-    // Getters y Setters
     public String getFirstName() { return firstName; }
     public void setFirstName(String firstName) { this.firstName = firstName; }
     public String getLastName() { return lastName; }
