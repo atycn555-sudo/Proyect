@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.Set;
 
 @Entity
-@Table(name = "AppUser")   // 👈 coincide con la tabla real
+@Table(name = "AppUser")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,7 +17,7 @@ public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_user")   // 👈 coincide con la PK de AppUser
+    @Column(name = "id_user")
     private Long id;
 
     @Column(name = "email", nullable = false, unique = true, length = 100)
@@ -31,9 +31,9 @@ public class User implements UserDetails {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-        name = "User_Role", // 👈 tabla intermedia real
-        joinColumns = @JoinColumn(name = "id_user"),   // 👈 FK hacia AppUser.id_user
-        inverseJoinColumns = @JoinColumn(name = "id_role") // 👈 FK hacia Role.id_role
+        name = "User_Role",
+        joinColumns = @JoinColumn(name = "id_user"),
+        inverseJoinColumns = @JoinColumn(name = "id_role")
     )
     private Set<Role> roles;
 
