@@ -20,9 +20,6 @@ public class VaccineGraphql {
     @Autowired
     private VaccineService service;
 
-    // -------------------
-    // QUERIES
-    // -------------------
     @QueryMapping
     public List<VaccineResponseDTO> getAllVaccines() {
         return service.findAllVaccines().stream()
@@ -44,9 +41,6 @@ public class VaccineGraphql {
                 .toList();
     }
 
-    // -------------------
-    // MUTATIONS
-    // -------------------
     @MutationMapping
     public VaccineResponseDTO addVaccine(@Valid @Argument VaccineRequestDTO vaccineDTO) {
         Vaccine saved = service.saveVaccine(vaccineDTO);
@@ -58,9 +52,6 @@ public class VaccineGraphql {
         return service.deleteVaccineById(id);
     }
 
-    // -------------------
-    // Conversión a DTO
-    // -------------------
     private VaccineResponseDTO toDTO(Vaccine vaccine) {
         VaccineResponseDTO dto = new VaccineResponseDTO();
         dto.setIdVaccine(vaccine.getIdVaccine());
