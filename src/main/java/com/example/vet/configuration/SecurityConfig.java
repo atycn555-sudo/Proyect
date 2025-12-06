@@ -48,7 +48,7 @@ public class SecurityConfig {
                 // Endpoints públicos
                 .requestMatchers(WHITE_LIST_URL).permitAll()
                 .requestMatchers(HttpMethod.GET, "/").permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/users/register").permitAll() // 👈 registro libre
+                .requestMatchers(HttpMethod.POST, "/api/v1/users/register").permitAll() // 👈 registro libre
 
                 // USER + ADMIN pueden consultar y crear clientes, mascotas, historial médico
                 .requestMatchers(HttpMethod.POST, "/api/clients/**", "/api/pets/**", "/api/medical-history/**")
