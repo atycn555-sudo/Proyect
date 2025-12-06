@@ -43,20 +43,10 @@ public class ShiftService {
         return shiftRepository.findById(id);
     }
 
-    /**
-     * Busca todos los turnos de un veterinario específico.
-     * @param veterinarianId El ID del veterinario.
-     * @return La lista de sus turnos.
-     */
     public List<Shift> findShiftsByVeterinarianId(Integer veterinarianId) {
         return shiftRepository.findByVeterinarianIdVeterinarian(veterinarianId);
     }
 
-    /**
-     * Elimina un turno por su ID.
-     * @param id El ID del turno a eliminar.
-     * @return true si se eliminó, false si no.
-     */
     public boolean deleteShiftById(Integer id) {
         if (shiftRepository.existsById(id)) {
             shiftRepository.deleteById(id);
