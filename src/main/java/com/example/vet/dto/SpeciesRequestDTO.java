@@ -9,7 +9,6 @@ public class SpeciesRequestDTO {
     @Size(max = 50, message = "The species name cannot exceed 50 characters")
     private String speciesName;
 
-    // Getters and Setters
     public String getSpeciesName() {
         return speciesName;
     }
