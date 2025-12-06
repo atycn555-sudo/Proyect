@@ -8,7 +8,6 @@ public class AddressResponseDTO {
     private String city;
     private String zipCode;
 
-    // Getters y Setters
     public Integer getIdAddress() { return idAddress; }
     public void setIdAddress(Integer idAddress) { this.idAddress = idAddress; }
     public String getStreet() { return street; }
