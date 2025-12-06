@@ -26,7 +26,6 @@ import com.example.vet.service.UserService;
 @EnableMethodSecurity
 public class SecurityConfig {
 
-    // ✅ Rutas públicas (Swagger, Actuator, etc.)
     private static final String[] WHITE_LIST_URL = {
             "/index.html",
             "/v3/api-docs/**",
@@ -54,25 +53,26 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.POST, "/api/clients/**", "/api/pets/**", "/api/medical-history/**")
                 .hasAnyRole("CLIENT", "ADMIN")
                 .requestMatchers(HttpMethod.GET,
-                        "/api/products/**",
-                        "/api/services/**",
-                        "/api/veterinarians/**",
-                        "/api/shifts/**",
-                        "/api/clients/**",
-                        "/api/pets/**",
-                        "/api/species/**",
-                        "/api/vaccines/**",
-                        "/api/medical-history/**")
+                        "/api/v1/products/**",
+                        "/api/v1/addresses/**",
+                        "/api/v1/services/**",
+                        "/api/v1/veterinarians/**",
+                        "/api/v1/shifts/**",
+                        "/api/v1/clients/**",
+                        "/api/v1/pets/**",
+                        "/api/v1/species/**",
+                        "/api/v1/vaccines/**",
+                        "/api/v1/medical-history/**")
                 .hasAnyRole("CLIENT", "ADMIN")
 
                 // SOLO ADMIN puede crear/editar/eliminar especies, vacunas, veterinarios, productos, proveedores
                 .requestMatchers(HttpMethod.POST,
-                        "/api/species/**",
-                        "/api/vaccines/**",
-                        "/api/veterinarians/**",
-                        "/api/products/**",
-                        "/api/shifts/**",
-                        "/api/suppliers/**")
+                        "/api/v1/species/**",
+                        "/api/v1/vaccines/**",
+                        "/api/v1/veterinarians/**",
+                        "/api/v1/products/**",
+                        "/api/v1/shifts/**",
+                        "/api/v1/suppliers/**")
                 .hasRole("ADMIN")
                 .requestMatchers(HttpMethod.PUT, "/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/**").hasRole("ADMIN")
@@ -86,13 +86,11 @@ public class SecurityConfig {
         return http.build();
     }
 
-    // ✅ PasswordEncoder único
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    // ✅ AuthenticationProvider usando tu CustomUserDetailsService
     @Bean
     public AuthenticationProvider authenticationProvider(UserService userService,
                                                      PasswordEncoder encoder) {
@@ -102,7 +100,6 @@ public class SecurityConfig {
     return authProvider;
     }
 
-    // ✅ Configuración CORS
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
