@@ -5,7 +5,6 @@ public class VeterinarianSimpleResponseDTO {
     private String firstName;
     private String lastName;
 
-    // Getters y Setters
     public Integer getIdVeterinarian() {
         return idVeterinarian;
     }
