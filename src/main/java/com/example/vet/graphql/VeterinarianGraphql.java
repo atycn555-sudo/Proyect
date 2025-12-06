@@ -20,9 +20,6 @@ public class VeterinarianGraphql {
     @Autowired
     private VeterinarianService service;
 
-    // -------------------
-    // QUERIES
-    // -------------------
     @QueryMapping
     public List<VeterinarianResponseDTO> getAllVeterinarians() {
         return service.findAllVeterinarians().stream()
@@ -51,9 +48,6 @@ public class VeterinarianGraphql {
                 .orElseThrow(() -> new RuntimeException("Veterinarian not found with email " + email));
     }
 
-    // -------------------
-    // MUTATIONS
-    // -------------------
     @MutationMapping
     public VeterinarianResponseDTO addVeterinarian(@Valid @Argument VeterinarianRequestDTO vetDTO) {
         Veterinarian vet = new Veterinarian();
@@ -86,9 +80,6 @@ public class VeterinarianGraphql {
         return service.deleteVeterinarianById(id);
     }
 
-    // -------------------
-    // Conversión a DTO
-    // -------------------
     private VeterinarianResponseDTO toDTO(Veterinarian vet) {
         VeterinarianResponseDTO dto = new VeterinarianResponseDTO();
         dto.setIdVeterinarian(vet.getIdVeterinarian());
