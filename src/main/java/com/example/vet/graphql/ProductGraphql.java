@@ -19,9 +19,6 @@ public class ProductGraphql {
     @Autowired
     private ProductService service;
 
-    // -------------------
-    // QUERIES
-    // -------------------
     @QueryMapping
     public List<ProductResponseDTO> getAllProducts() {
         return service.findAllProducts();
@@ -43,9 +40,6 @@ public class ProductGraphql {
         return service.findBySupplierId(supplierId);
     }
 
-    // -------------------
-    // MUTATIONS
-    // -------------------
     @MutationMapping
     public ProductResponseDTO addProduct(@Valid @Argument ProductRequestDTO productDTO) {
         return service.toDTO(service.saveProduct(productDTO));
