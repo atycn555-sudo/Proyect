@@ -18,13 +18,13 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/invoices")
-@Tag(name = "Invoices", description = "API para gestionar Facturas")
+@Tag(name = "Invoices", description = "API for managing invoices")
 public class InvoiceController {
 
     @Autowired
     private InvoiceService invoiceService;
 
-    @Operation(summary = "Crear una nueva factura")
+    @Operation(summary = "Create a new invoice")
     @PostMapping
     public ResponseEntity<InvoiceResponseDTO> createInvoice(@Valid @RequestBody InvoiceRequestDTO requestDTO) {
         var newInvoice = invoiceService.saveInvoice(requestDTO);
@@ -32,13 +32,13 @@ public class InvoiceController {
         return new ResponseEntity<>(responseDTO, HttpStatus.CREATED);
     }
 
-    @Operation(summary = "Obtener todas las facturas")
+    @Operation(summary = "Get all invoices")
     @GetMapping
     public ResponseEntity<List<InvoiceResponseDTO>> getAllInvoices() {
         return new ResponseEntity<>(invoiceService.findAllInvoices(), HttpStatus.OK);
     }
 
-    @Operation(summary = "Obtener una factura por su ID")
+    @Operation(summary = "Get an invoice using your ID")
     @GetMapping("/{id}")
     public ResponseEntity<InvoiceResponseDTO> getInvoiceById(@PathVariable Integer id) {
         Optional<InvoiceResponseDTO> invoice = invoiceService.findInvoiceById(id);
@@ -46,20 +46,20 @@ public class InvoiceController {
                       .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @Operation(summary = "Buscar facturas por ID de cliente")
+    @Operation(summary = "Get an invoice using your ID")
     @GetMapping("/client/{clientId}")
     public ResponseEntity<List<InvoiceResponseDTO>> getInvoicesByClientId(@PathVariable Integer clientId) {
         return new ResponseEntity<>(invoiceService.findInvoicesByClientId(clientId), HttpStatus.OK);
     }
 
-    @Operation(summary = "Buscar facturas por fecha")
+    @Operation(summary = "Search invoices by date")
     @GetMapping("/date/{date}")
     public ResponseEntity<List<InvoiceResponseDTO>> getInvoicesByDate(
             @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime date) {
         return new ResponseEntity<>(invoiceService.findInvoicesByDate(date), HttpStatus.OK);
     }
 
-    @Operation(summary = "Actualizar una factura existente")
+    @Operation(summary = "Update an existing invoice")
     @PutMapping("/{id}")
     public ResponseEntity<InvoiceResponseDTO> updateInvoice(@PathVariable Integer id,
                                                          @Valid @RequestBody InvoiceRequestDTO requestDTO) {
@@ -69,7 +69,7 @@ public class InvoiceController {
             .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 }
 
-    @Operation(summary = "Eliminar una factura por su ID")
+    @Operation(summary = "Delete an invoice by its ID")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteInvoice(@PathVariable Integer id) {
         return invoiceService.deleteInvoiceById(id)
