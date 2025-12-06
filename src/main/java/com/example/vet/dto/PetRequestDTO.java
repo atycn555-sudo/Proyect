@@ -8,22 +8,21 @@ import java.time.LocalDate;
 
 public class PetRequestDTO {
 
-    @NotBlank(message = "El nombre de la mascota no puede estar vacío")
+    @NotBlank(message = "The pet's name cannot be empty.")
     @Size(max = 100)
     private String name;
 
-    @PastOrPresent(message = "La fecha de nacimiento no puede ser en el futuro")
+    @PastOrPresent(message = "The date of birth cannot be in the future")
     private LocalDate birthDate;
 
     private String breed;
 
-    @NotNull(message = "El ID del cliente no puede ser nulo")
+    @NotNull(message = "The client ID cannot be null")
     private Integer idClient; 
 
-    @NotNull(message = "El ID de la especie no puede ser nulo")
+    @NotNull(message = "The species ID cannot be null")
     private Integer idSpecies;
 
-    // Getters y Setters
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
     public LocalDate getBirthDate() { return birthDate; }
