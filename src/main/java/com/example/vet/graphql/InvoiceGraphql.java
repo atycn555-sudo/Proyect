@@ -19,9 +19,6 @@ public class InvoiceGraphql {
     @Autowired
     private InvoiceService service;
 
-    // -------------------
-    // QUERIES
-    // -------------------
     @QueryMapping
     public List<InvoiceResponseDTO> getAllInvoices() {
         return service.findAllInvoices();
@@ -44,9 +41,6 @@ public class InvoiceGraphql {
         return service.findInvoicesByDate(parsedDate);
     }
 
-    // -------------------
-    // MUTATIONS
-    // -------------------
     @MutationMapping
     public InvoiceResponseDTO addInvoice(@Valid @Argument InvoiceRequestDTO invoiceDTO) {
         return service.toDTO(service.saveInvoice(invoiceDTO));
