@@ -6,19 +6,18 @@ import java.time.LocalDate;
 
 public class VaccineRequestDTO {
 
-    @NotBlank(message = "El nombre de la vacuna no puede estar vacío")
+    @NotBlank(message = "The vaccine name cannot be empty.")
     private String vaccineName;
 
-    @NotNull(message = "La fecha de aplicación no puede ser nula")
+    @NotNull(message = "The application date cannot be zero")
     private LocalDate applicationDate;
 
     private LocalDate nextVaccineDate;
     private String batchNumber;
 
-    @NotNull(message = "El ID de la mascota no puede ser nulo")
+    @NotNull(message = "The pet ID cannot be null")
     private Integer idPet;
 
-    // Getters y Setters manuales
     public String getVaccineName() { return vaccineName; }
     public void setVaccineName(String vaccineName) { this.vaccineName = vaccineName; }
     public LocalDate getApplicationDate() { return applicationDate; }
