@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/addresses")
-@Tag(name = "Addresses", description = "API para gestionar Direcciones")
+@Tag(name = "Addresses", description = "API for managing addresses")
 @CrossOrigin(origins = "*")
 public class AddressController {
 
