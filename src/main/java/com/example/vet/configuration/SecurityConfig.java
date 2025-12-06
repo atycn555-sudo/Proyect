@@ -41,15 +41,12 @@ public class SecurityConfig {
         http
             .csrf(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests(req -> req
-                // Permitir CORS preflight
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
-                // Endpoints públicos
                 .requestMatchers(WHITE_LIST_URL).permitAll()
                 .requestMatchers(HttpMethod.GET, "/").permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/v1/users/register").permitAll() // 👈 registro libre
+                .requestMatchers(HttpMethod.POST, "/api/v1/users/register").permitAll()
 
-                // USER + ADMIN pueden consultar y crear clientes, mascotas, historial médico
                 .requestMatchers(HttpMethod.POST, "/api/clients/**", "/api/pets/**", "/api/medical-history/**")
                 .hasAnyRole("CLIENT", "ADMIN")
                 .requestMatchers(HttpMethod.GET,
@@ -65,7 +62,6 @@ public class SecurityConfig {
                         "/api/v1/medical-history/**")
                 .hasAnyRole("CLIENT", "ADMIN")
 
-                // SOLO ADMIN puede crear/editar/eliminar especies, vacunas, veterinarios, productos, proveedores
                 .requestMatchers(HttpMethod.POST,
                         "/api/v1/species/**",
                         "/api/v1/vaccines/**",
@@ -77,10 +73,8 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.PUT, "/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/**").hasRole("ADMIN")
 
-                // Default: todo lo demás requiere autenticación
                 .anyRequest().authenticated()
             )
-            // Autenticación básica
             .httpBasic(Customizer.withDefaults());
 
         return http.build();
@@ -95,7 +89,7 @@ public class SecurityConfig {
     public AuthenticationProvider authenticationProvider(UserService userService,
                                                      PasswordEncoder encoder) {
     DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-    authProvider.setUserDetailsService(userService); // 👈 usa tu UserService
+    authProvider.setUserDetailsService(userService);
     authProvider.setPasswordEncoder(encoder);
     return authProvider;
     }
