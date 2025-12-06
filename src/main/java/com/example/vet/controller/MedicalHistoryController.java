@@ -19,13 +19,13 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/medical-history")
-@Tag(name = "Medical History", description = "API para gestionar Historiales Médicos")
+@Tag(name = "Medical History", description = "API for managing Medical Records")
 public class MedicalHistoryController {
 
     @Autowired
     private MedicalHistoryService medicalHistoryService;
 
-    @Operation(summary = "Crear un nuevo historial médico")
+    @Operation(summary = "Create a new medical record")
     @PostMapping
     public ResponseEntity<MedicalHistoryResponseDTO> createMedicalHistory(@Valid @RequestBody MedicalHistoryRequestDTO requestDTO) {
         MedicalHistory newHistory = medicalHistoryService.saveMedicalHistory(requestDTO);
@@ -34,13 +34,13 @@ public class MedicalHistoryController {
                           .orElse(new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
     }
 
-    @Operation(summary = "Obtener todos los historiales médicos")
+    @Operation(summary = "Obtain all medical records")
     @GetMapping
     public ResponseEntity<List<MedicalHistoryResponseDTO>> getAllMedicalHistories() {
         return new ResponseEntity<>(medicalHistoryService.findAllMedicalHistories(), HttpStatus.OK);
     }
 
-    @Operation(summary = "Obtener un historial médico por su ID")
+    @Operation(summary = "Get a medical history using your ID")
     @GetMapping("/{id}")
     public ResponseEntity<MedicalHistoryResponseDTO> getMedicalHistoryById(@PathVariable Integer id) {
         return medicalHistoryService.findMedicalHistoryById(id)
@@ -48,26 +48,26 @@ public class MedicalHistoryController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @Operation(summary = "Buscar historiales por ID de mascota")
+    @Operation(summary = "Search histories by pet ID")
     @GetMapping("/pet/{petId}")
     public ResponseEntity<List<MedicalHistoryResponseDTO>> getHistoriesByPetId(@PathVariable Integer petId) {
         return new ResponseEntity<>(medicalHistoryService.findByPetId(petId), HttpStatus.OK);
     }
 
-    @Operation(summary = "Buscar historiales por ID de veterinario")
+    @Operation(summary = "Search records by veterinarian ID")
     @GetMapping("/vet/{vetId}")
     public ResponseEntity<List<MedicalHistoryResponseDTO>> getHistoriesByVeterinarianId(@PathVariable Integer vetId) {
         return new ResponseEntity<>(medicalHistoryService.findByVeterinarianId(vetId), HttpStatus.OK);
     }
 
-    @Operation(summary = "Buscar historiales por fecha")
+    @Operation(summary = "Search history by date")
     @GetMapping("/date/{date}")
     public ResponseEntity<List<MedicalHistoryResponseDTO>> getHistoriesByDate(
             @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         return new ResponseEntity<>(medicalHistoryService.findByDate(date), HttpStatus.OK);
     }
 
-    @Operation(summary = "Actualizar un historial médico existente")
+    @Operation(summary = "Update an existing medical history")
     @PutMapping("/{id}")
     public ResponseEntity<MedicalHistoryResponseDTO> updateMedicalHistory(@PathVariable Integer id,
                                                                            @Valid @RequestBody MedicalHistoryRequestDTO requestDTO) {
@@ -77,7 +77,7 @@ public class MedicalHistoryController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @Operation(summary = "Eliminar un historial médico por su ID")
+    @Operation(summary = "Delete a medical record by its ID")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteMedicalHistory(@PathVariable Integer id) {
         return medicalHistoryService.deleteMedicalHistoryById(id)
