@@ -59,9 +59,6 @@ public class PetGraphql {
         return service.deletePetById(id);
     }
 
-    // -------------------
-    // Conversión a DTO
-    // -------------------
     private PetResponseDTO toDTO(Pet pet) {
         PetResponseDTO dto = new PetResponseDTO();
         dto.setIdPet(pet.getIdPet());
@@ -69,14 +66,12 @@ public class PetGraphql {
         dto.setBirthDate(pet.getBirthDate());
         dto.setBreed(pet.getBreed());
 
-        // ClientSimpleResponseDTO
         com.example.vet.dto.ClientSimpleResponseDTO clientDTO = new com.example.vet.dto.ClientSimpleResponseDTO();
         clientDTO.setIdClient(pet.getClient().getIdClient());
         clientDTO.setFirstName(pet.getClient().getFirstName());
         clientDTO.setLastName(pet.getClient().getLastName());
         dto.setClient(clientDTO);
 
-        // SpeciesResponseDTO
         com.example.vet.dto.SpeciesResponseDTO speciesDTO = new com.example.vet.dto.SpeciesResponseDTO();
         speciesDTO.setIdSpecies(pet.getSpecies().getIdSpecies());
         speciesDTO.setSpeciesName(pet.getSpecies().getSpeciesName());
