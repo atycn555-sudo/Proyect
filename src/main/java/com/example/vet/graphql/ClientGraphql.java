@@ -18,9 +18,6 @@ public class ClientGraphql {
     @Autowired
     private ClientService service;
 
-    // -------------------
-    // QUERIES
-    // -------------------
     @QueryMapping
     public List<Client> getAllClients() {
         return service.findAllClients(); // usa tu método real
@@ -32,9 +29,6 @@ public class ClientGraphql {
                 .orElseThrow(() -> new RuntimeException("Client not found with id " + id));
     }
 
-    // -------------------
-    // MUTATIONS
-    // -------------------
     @MutationMapping
     public Client addClient(@Valid @Argument Client client) {
         return service.saveClient(client); // usa tu método real
