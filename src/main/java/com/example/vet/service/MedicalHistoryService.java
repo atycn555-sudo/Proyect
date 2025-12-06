@@ -116,7 +116,6 @@ public class MedicalHistoryService {
         return false;
     }
 
-    // Conversión a DTO
     public MedicalHistoryResponseDTO toDTO(MedicalHistory history) {
         MedicalHistoryResponseDTO dto = new MedicalHistoryResponseDTO();
         dto.setIdHistory(history.getIdHistory());
