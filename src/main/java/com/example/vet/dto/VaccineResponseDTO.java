@@ -10,7 +10,6 @@ public class VaccineResponseDTO {
     private String batchNumber;
     private PetSimpleResponseDTO pet;
 
-    // Getters y Setters manuales
     public Integer getIdVaccine() { return idVaccine; }
     public void setIdVaccine(Integer idVaccine) { this.idVaccine = idVaccine; }
     public String getVaccineName() { return vaccineName; }
