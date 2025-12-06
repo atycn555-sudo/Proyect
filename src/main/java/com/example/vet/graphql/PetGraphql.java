@@ -20,9 +20,6 @@ public class PetGraphql {
     @Autowired
     private PetService service;
 
-    // -------------------
-    // QUERIES
-    // -------------------
     @QueryMapping
     public List<PetResponseDTO> getAllPets() {
         return service.findAllPets().stream()
@@ -44,9 +41,6 @@ public class PetGraphql {
                 .toList();
     }
 
-    // -------------------
-    // MUTATIONS
-    // -------------------
     @MutationMapping
     public PetResponseDTO addPet(@Valid @Argument PetRequestDTO petDTO) {
         Pet saved = service.savePet(petDTO);
