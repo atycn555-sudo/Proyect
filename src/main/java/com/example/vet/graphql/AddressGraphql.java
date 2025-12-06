@@ -18,9 +18,6 @@ public class AddressGraphql {
     @Autowired
     private AddressService service;
 
-    // -------------------
-    // QUERIES
-    // -------------------
     @QueryMapping
     public List<Address> getAllAddresses() {
         return service.findAllAddresses();
@@ -32,9 +29,6 @@ public class AddressGraphql {
                 .orElseThrow(() -> new RuntimeException("Address not found with id " + id));
     }
 
-    // -------------------
-    // MUTATIONS
-    // -------------------
     @MutationMapping
     public Address addAddress(@Valid @Argument Address address) {
         return service.saveAddress(address);
